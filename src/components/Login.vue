@@ -13,21 +13,32 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref } from "vue";
+<script>
+import AuthService from "@/services/auth.service";
 
-const username = ref("");
-const password = ref("");
-const error = ref("");
-
-const login = () => {
-  // Dummy authentication
-  if (username.value === "admin" && password.value === "password") {
-    // Redirect or perform other actions upon successful login
-    alert("Login successful!");
-  } else {
-    error.value = "Invalid username or password";
-  }
+export default {
+  name: "LoginPage",
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    async login() {
+      try {
+        const userRole = await AuthService.login(this.email, this.password);
+        if (userRole === "admin") {
+          this.$router.push("/admin");
+        } else if (userRole === "client") {
+          this.$router.push("/client");
+        }
+      } catch (error) {
+        console.error("Login failed:", error);
+        // Display an error message or handle the error
+      }
+    },
+  },
 };
 </script>
 
