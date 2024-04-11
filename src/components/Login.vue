@@ -1,7 +1,6 @@
 <template>
   <div class="login-page-background">
     <Navbar />
-    <!-- Include the Navbar component here -->
     <div class="login-container">
       <form @submit.prevent="login" class="login-form">
         <input type="text" v-model="username" placeholder="Username" />
@@ -80,7 +79,7 @@ body {
   align-items: center;
 }
 
-.error-message {
+.error {
   color: red;
 }
 </style>
